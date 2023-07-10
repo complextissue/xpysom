@@ -110,7 +110,7 @@ class XPySom:
 
         activation_distance : string, optional (default='euclidean')
             Distance used to activate the map.
-            Possible values: 'euclidean', 'cosine', 'manhattan', 'norm_p'
+            Possible values: 'euclidean', 'correlation', 'cosine', 'manhattan', 'norm_p'
 
         activation_distance_kwargs : dict, optional (default={})
             Pass additional argumets to distance function.

@@ -41,6 +41,13 @@ def euclidean_distance(x, w, w_sq=None, xp=default_xp):
         )
     )
 
+def correlation_distance(x, w, xp=default_xp):
+    """Calculate Pearson correlation distance
+
+    NB: result shape is (N,X*Y)
+    """
+    return 1 - xp.corrcoef(x, w)[:x.shape[0], x.shape[0]:]
+
 def cosine_distance(x, w, w_sq=None, xp=default_xp):
     """Calculate cosine distance
 
@@ -163,6 +170,7 @@ class DistanceFunction:
             'euclidean_no_opt': euclidean_squared_distance,
             'manhattan': manhattan_distance,
             'manhattan_no_opt': manhattan_distance_no_opt,
+            'correlation': correlation_distance,
             'cosine': cosine_distance,
             'norm_p': norm_p_power_distance,
             'norm_p_no_opt': norm_p_power_distance_generic,

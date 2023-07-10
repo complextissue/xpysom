@@ -12,6 +12,7 @@ from .distances import (
     euclidean_squared_distance_part,
     euclidean_squared_distance,
     euclidean_distance,
+    correlation_distance,
     cosine_distance,
     manhattan_distance,
     norm_p_power_distance,
@@ -103,6 +104,15 @@ DISTANCES = [
     (
         euclidean_distance,
         lambda vx, vy: np.linalg.norm(vx - vy),
+        {},
+    ),
+    (
+        correlation_distance,
+        lambda vx, vy: 1 - np.nan_to_num(
+            np.dot(vx - np.mean(vx), vy - np.mean(vy)) / (
+                np.linalg.norm(vx - np.mean(vx)) * np.linalg.norm(vy - np.mean(vy))
+            )
+        ),
         {},
     ),
     (

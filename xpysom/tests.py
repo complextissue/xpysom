@@ -11,7 +11,7 @@ except Exception as e:
 from minisom import MiniSom
 
 from .xpysom import XPySom
-from .distances import cosine_distance, manhattan_distance, euclidean_squared_distance
+from .distances import correlation_distance, cosine_distance, manhattan_distance, euclidean_squared_distance
 from .neighborhoods import gaussian_generic, gaussian_rect, mexican_hat_generic, mexican_hat_rect, bubble, triangle, prepare_neig_func
 
 import pickle
@@ -157,6 +157,18 @@ class TestCupySom(unittest.TestCase):
         for i, sample in enumerate(x):
             ms_dist = self.minisom._euclidean_distance(sample, w)**2
             np.testing.assert_array_almost_equal(ms_dist, cs_dist[i])
+
+    def test_correlation_distance(self):
+        x = np.random.rand(100, 20)
+        w = np.random.rand(10,10,20)
+        w_flat = w.reshape(-1, w.shape[2])
+        cs_dist = correlation_distance(self.xp.array(x), self.xp.array(w_flat), xp=self.xp)
+        np_dist = correlation_distance(np.array(x), np.array(w_flat), xp=np)
+        if self.xp.__name__ == 'cupy':
+            cs_dist = cp.asnumpy(cs_dist)
+        cs_dist = cs_dist.reshape((100,10,10))
+        np_dist = np_dist.reshape((100,10,10))
+        np.testing.assert_array_almost_equal(np_dist, cs_dist)
 
     def test_cosine_distance(self):
         x = np.random.rand(100, 20)
