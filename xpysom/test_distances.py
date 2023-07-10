@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.spatial.distance as distance
 
 XPS = [np]
 try:
@@ -108,11 +109,7 @@ DISTANCES = [
     ),
     (
         correlation_distance,
-        lambda vx, vy: 1 - np.nan_to_num(
-            np.dot(vx - np.mean(vx), vy - np.mean(vy)) / (
-                np.linalg.norm(vx - np.mean(vx)) * np.linalg.norm(vy - np.mean(vy))
-            )
-        ),
+        lambda vx, vy: distance.correlation(vx, vy),
         {},
     ),
     (
