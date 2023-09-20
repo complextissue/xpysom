@@ -21,7 +21,7 @@ setup(name='XPySom',
       include_package_data=True,
       license="GNU General Public License v3.0",
       packages=['xpysom'],
-      install_requires=['numpy', 'scipy'],
+      install_requires=['numpy', 'scipy', 'tqdm'],
       extras_require={
             'cuda90': ['cupy-cuda90'],
             'cuda92': ['cupy-cuda92'],

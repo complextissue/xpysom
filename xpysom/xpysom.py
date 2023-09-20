@@ -10,6 +10,7 @@ import pickle
 import os
 
 import numpy as np
+from tqdm import tqdm
 try:
     import cupy as cp
     default_xp = cp
@@ -447,7 +448,7 @@ class XPySom:
         if verbose:
             print_progress(-1, num_epochs*len(data))
 
-        for iteration in range(iter_beg, iter_end):
+        for iteration in tqdm(range(iter_beg, iter_end)):
             try: # reuse already allocated memory
                 self._numerator_gpu.fill(0)
                 self._denominator_gpu.fill(0)
